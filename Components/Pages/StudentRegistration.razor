@@ -1,0 +1,718 @@
+@page "/student-registration"
+@inject NavigationManager Navigation
+
+<div class="min-h-screen bg-gray-100 pb-12">
+    <!-- Header -->
+    <div class="bg-blue-600 text-white py-5 px-6 shadow-md">
+        <h1 class="text-2xl font-bold text-center">Registration Form</h1>
+    </div>
+
+    <!-- Form Container -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <EditForm Model="@registrationModel" OnValidSubmit="HandleSubmit">
+
+                <!-- Personal Information Section -->
+         <div class="bg-white border-b border-gray-200 p-6">
+        <h2 class="text-base font-bold text-blue-600 mb-4">Personal Information</h2>
+
+       <!-- First Row: First Name, Middle Name, Last Name, Suffix -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+     <div>
+     <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         First Name <span class="text-red-500">*</span>
+       </label>
+  <InputText @bind-Value="registrationModel.FirstName" 
+class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors" 
+placeholder="Josh Daniel" />
+     </div>
+             <div>
+       <label class="block text-xs font-medium text-gray-700 mb-1.5">Middle Name</label>
+  <InputText @bind-Value="registrationModel.MiddleName" 
+     class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors" 
+      placeholder="Cleve" />
+ </div>
+        <div>
+   <label class="block text-xs font-medium text-gray-700 mb-1.5">
+     Last Name <span class="text-red-500">*</span>
+        </label>
+        <InputText @bind-Value="registrationModel.LastName" 
+  class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors" 
+      placeholder="Colman" />
+          </div>
+  <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">Suffix</label>
+     <InputSelect @bind-Value="registrationModel.Suffix" 
+    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+           <option value="">N/A</option>
+      <option value="Jr.">Jr.</option>
+         <option value="Sr.">Sr.</option>
+        <option value="II">II</option>
+         <option value="III">III</option>
+ </InputSelect>
+       </div>
+           </div>
+
+        <!-- Second Row: Birth Date, Place of Birth, Sex, Mother Tongue -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <div>
+     <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         Birth Date <span class="text-red-500">*</span>
+          </label>
+    <InputDate @bind-Value="registrationModel.BirthDate" 
+  class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors" />
+       </div>
+            <div>
+     <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         Place of Birth <span class="text-red-500">*</span>
+   </label>
+            <InputText @bind-Value="registrationModel.PlaceOfBirth" 
+         class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors" 
+    placeholder="Davao City" />
+       </div>
+  <div>
+ <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         Sex <span class="text-red-500">*</span>
+  </label>
+    <div class="flex items-center gap-6 pt-2.5">
+      <label class="flex items-center cursor-pointer group">
+             <input type="radio" name="sex" value="Male" 
+        checked="@(registrationModel.Sex == "Male")" 
+       @onchange="@(() => registrationModel.Sex = "Male")" 
+    class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+         <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Male</span>
+      </label>
+       <label class="flex items-center cursor-pointer group">
+    <input type="radio" name="sex" value="Female" 
+      checked="@(registrationModel.Sex == "Female")" 
+           @onchange="@(() => registrationModel.Sex = "Female")" 
+            class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+    <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Female</span>
+          </label>
+         </div>
+</div>
+ <div>
+     <label class="block text-xs font-medium text-gray-700 mb-1.5">
+    Mother Tongue <span class="text-red-500">*</span>
+     </label>
+   <InputSelect @bind-Value="registrationModel.MotherTongue" 
+       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+<option value="">Select Mother Tongue</option>
+  <option value="Tagalog">Tagalog</option>
+              <option value="Cebuano">Cebuano</option>
+     <option value="Ilocano">Ilocano</option>
+  <option value="Hiligaynon">Hiligaynon</option>
+         <option value="Waray">Waray</option>
+          <option value="Others">Others</option>
+      </InputSelect>
+   </div>
+   </div>
+
+          @if (registrationModel.MotherTongue == "Others")
+       {
+         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+      <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+       Please specify Mother Tongue <span class="text-red-500">*</span>
+   </label>
+        <InputText @bind-Value="registrationModel.MotherTongueOther"
+        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+       placeholder="Enter your mother tongue" />
+                </div>
+           </div>
+         }
+
+       <!-- Third Row: Indigenous, Specify, 4Ps, 4Ps ID -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div class="md:col-span-3">
+      <label class="block text-xs font-medium text-gray-700 mb-1.5">
+        Indigenous Peoples (IP) Community? <span class="text-red-500">*</span>
+         </label>
+     <div class="flex items-center gap-4 pt-2.5">
+  <label class="flex items-center cursor-pointer group">
+      <input type="checkbox"
+        checked="@registrationModel.IsIndigenous"
+           @onchange="@((e) => { registrationModel.IsIndigenous = (bool)e.Value; if((bool)e.Value) { registrationModel.IsNotIndigenous = false; registrationModel.IndigenousSpecify = string.Empty; registrationModel.IndigenousSpecifyOther = string.Empty; } })"
+           class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+ <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Yes</span>
+             </label>
+             <label class="flex items-center cursor-pointer group">
+            <input type="checkbox"
+ checked="@registrationModel.IsNotIndigenous"
+         @onchange="@((e) => { registrationModel.IsNotIndigenous = (bool)e.Value; if((bool)e.Value) { registrationModel.IsIndigenous = false; registrationModel.IndigenousSpecify = string.Empty; registrationModel.IndigenousSpecifyOther = string.Empty; } })"
+   class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+<span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">No</span>
+     </label>
+      </div>
+                  </div>
+             <div class="md:col-span-3">
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">If Yes, please specify:</label>
+        <InputSelect @bind-Value="registrationModel.IndigenousSpecify"
+           disabled="@(!registrationModel.IsIndigenous)"
+      class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+        <option value="">Select Indigenous Community</option>
+       <option value="Ati">Ati</option>
+                  <option value="Bagobo">Bagobo</option>
+            <option value="Manobo">Manobo</option>
+    <option value="T'boli">T'boli</option>
+       <option value="Others">Others</option>
+           </InputSelect>
+       </div>
+          <div class="md:col-span-3">
+      <label class="block text-xs font-medium text-gray-700 mb-1.5">
+          4Ps Beneficiary? (Yes/No) <span class="text-red-500">*</span>
+        </label>
+        <div class="flex items-center gap-4 pt-2.5">
+          <label class="flex items-center cursor-pointer group">
+             <input type="checkbox"
+           checked="@registrationModel.Is4PsBeneficiary"
+@onchange="@((e) => { registrationModel.Is4PsBeneficiary = (bool)e.Value; if((bool)e.Value) { registrationModel.IsNot4PsBeneficiary = false; } else { registrationModel.FourPsHouseholdId = string.Empty; } })"
+     class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+       <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Yes</span>
+             </label>
+      <label class="flex items-center cursor-pointer group">
+            <input type="checkbox"
+ checked="@registrationModel.IsNot4PsBeneficiary"
+           @onchange="@((e) => { registrationModel.IsNot4PsBeneficiary = (bool)e.Value; if((bool)e.Value) { registrationModel.Is4PsBeneficiary = false; registrationModel.FourPsHouseholdId = string.Empty; } })"
+           class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+  <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">No</span>
+  </label>
+         </div>
+         </div>
+        <div class="md:col-span-3">
+    <label class="block text-xs font-medium text-gray-700 mb-1.5">If Yes, 4Ps Household ID:</label>
+      <InputText @bind-Value="registrationModel.FourPsHouseholdId"
+  disabled="@(!registrationModel.Is4PsBeneficiary)"
+                   class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          placeholder="Enter Household ID" />
+          </div>
+       </div>
+
+      @if (registrationModel.IndigenousSpecify == "Others" && registrationModel.IsIndigenous)
+    {
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
+          <div class="md:col-span-3">
+   <label class="block text-xs font-medium text-gray-700 mb-1.5">
+      Please specify Indigenous Community <span class="text-red-500">*</span>
+              </label>
+      <InputText @bind-Value="registrationModel.IndigenousSpecifyOther"
+         class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+                placeholder="Enter indigenous community" />
+     </div>
+       </div>
+        }
+      </div>
+
+  <!-- Current Address Section -->
+         <div class="bg-white border-b border-gray-200 p-6">
+ <h2 class="text-base font-bold text-blue-600 mb-4">Current Address</h2>
+
+        <!-- First Row: House No, Street Name, Barangay -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+   <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">House No./Street</label>
+      <InputText @bind-Value="registrationModel.CurrentHouseNo"
+               class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+                  placeholder="Enter house number" />
+      </div>
+        <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">Street Name</label>
+       <InputText @bind-Value="registrationModel.CurrentStreetName"
+        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+   placeholder="Enter street name" />
+          </div>
+           <div>
+  <label class="block text-xs font-medium text-gray-700 mb-1.5">
+          Barangay <span class="text-red-500">*</span>
+     </label>
+ <InputSelect @bind-Value="registrationModel.CurrentBarangay"
+      class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+ <option value="">Select Barangay</option>
+    <option value="Barangay 71-C">Barangay 71-C</option>
+   <option value="Barangay 1">Barangay 1</option>
+         <option value="Barangay 2">Barangay 2</option>
+       <option value="Others">Others</option>
+      </InputSelect>
+   </div>
+   </div>
+
+      @if (registrationModel.CurrentBarangay == "Others")
+             {
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+   <label class="block text-xs font-medium text-gray-700 mb-1.5">
+      Please specify Barangay <span class="text-red-500">*</span>
+         </label>
+<InputText @bind-Value="registrationModel.CurrentBarangayOther"
+       class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+       placeholder="Enter barangay name" />
+         </div>
+   </div>
+    }
+
+  <!-- Second Row: Municipality, Province, Country, ZIP Code -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+           <div>
+  <label class="block text-xs font-medium text-gray-700 mb-1.5">
+      Municipality/City <span class="text-red-500">*</span>
+           </label>
+   <InputText @bind-Value="registrationModel.CurrentMunicipality"
+      class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+          placeholder="Enter city/municipality" />
+         </div>
+         <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+          Province <span class="text-red-500">*</span>
+      </label>
+             <InputText @bind-Value="registrationModel.CurrentProvince"
+    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+ placeholder="Enter province" />
+            </div>
+   <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         Country <span class="text-red-500">*</span>
+         </label>
+           <InputText @bind-Value="registrationModel.CurrentCountry"
+    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+        placeholder="Enter country" />
+    </div>
+    <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+       ZIP Code <span class="text-red-500">*</span>
+     </label>
+         <InputText @bind-Value="registrationModel.CurrentZipCode"
+           class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+           placeholder="Enter ZIP code" />
+             </div>
+   </div>
+   </div>
+
+                <!-- Permanent Address Section -->
+          <div class="bg-white border-b border-gray-200 p-6">
+           <h2 class="text-base font-bold text-blue-600 mb-4">Permanent Address</h2>
+
+     <div class="mb-4">
+           <label class="block text-xs font-medium text-gray-700 mb-2">Same with your current Address?</label>
+    <div class="flex items-center gap-6">
+                 <label class="flex items-center cursor-pointer group">
+              <input type="checkbox"
+    checked="@registrationModel.PermanentSameAsCurrent"
+                @onchange="@((e) => HandlePermanentAddressChange((bool)e.Value, true))"
+         class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+              <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Yes</span>
+        </label>
+  <label class="flex items-center cursor-pointer group">
+    <input type="checkbox"
+    checked="@registrationModel.PermanentNotSameAsCurrent"
+          @onchange="@((e) => HandlePermanentAddressChange((bool)e.Value, false))"
+        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+           <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">No</span>
+        </label>
+      </div>
+         </div>
+
+     <!-- First Row: House No, Street Name, Barangay -->
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div>
+             <label class="block text-xs font-medium text-gray-700 mb-1.5">House No./Street</label>
+<InputText @bind-Value="registrationModel.PermanentHouseNo"
+           disabled="@registrationModel.PermanentSameAsCurrent"
+     class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+     placeholder="Enter house number" />
+            </div>
+   <div>
+    <label class="block text-xs font-medium text-gray-700 mb-1.5">Street Name</label>
+               <InputText @bind-Value="registrationModel.PermanentStreetName"
+      disabled="@registrationModel.PermanentSameAsCurrent"
+     class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+placeholder="Enter street name" />
+  </div>
+  <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+    Barangay <span class="text-red-500">*</span>
+   </label>
+         <InputSelect @bind-Value="registrationModel.PermanentBarangay"
+      disabled="@registrationModel.PermanentSameAsCurrent"
+          class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+           <option value="">Select Barangay</option>
+         <option value="Barangay 71-C">Barangay 71-C</option>
+            <option value="Barangay 1">Barangay 1</option>
+    <option value="Barangay 2">Barangay 2</option>
+      <option value="Others">Others</option>
+      </InputSelect>
+           </div>
+          </div>
+
+          @if (registrationModel.PermanentBarangay == "Others" && !registrationModel.PermanentSameAsCurrent)
+             {
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+         <div>
+      <label class="block text-xs font-medium text-gray-700 mb-1.5">
+  Please specify Barangay <span class="text-red-500">*</span>
+       </label>
+    <InputText @bind-Value="registrationModel.PermanentBarangayOther"
+         class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+        placeholder="Enter barangay name" />
+  </div>
+           </div>
+      }
+
+     <!-- Second Row: Municipality, Province, Country, ZIP Code -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+               <div>
+               <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         Municipality/City <span class="text-red-500">*</span>
+    </label>
+     <InputText @bind-Value="registrationModel.PermanentMunicipality"
+disabled="@registrationModel.PermanentSameAsCurrent"
+          class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      placeholder="Enter city/municipality" />
+             </div>
+         <div>
+  <label class="block text-xs font-medium text-gray-700 mb-1.5">
+Province <span class="text-red-500">*</span>
+       </label>
+   <InputText @bind-Value="registrationModel.PermanentProvince"
+          disabled="@registrationModel.PermanentSameAsCurrent"
+        class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            placeholder="Enter province" />
+     </div>
+    <div>
+       <label class="block text-xs font-medium text-gray-700 mb-1.5">
+                 Country <span class="text-red-500">*</span>
+         </label>
+    <InputText @bind-Value="registrationModel.PermanentCountry"
+       disabled="@registrationModel.PermanentSameAsCurrent"
+    class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      placeholder="Enter country" />
+            </div>
+   <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">
+    ZIP Code <span class="text-red-500">*</span>
+      </label>
+         <InputText @bind-Value="registrationModel.PermanentZipCode"
+        disabled="@registrationModel.PermanentSameAsCurrent"
+                 class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      placeholder="Enter ZIP code" />
+      </div>
+          </div>
+           </div>
+
+ <!-- Guardian Information Section -->
+  <div class="bg-white border-b border-gray-200 p-6">
+           <h2 class="text-base font-bold text-blue-600 mb-4">Guardian Information</h2>
+
+     <!-- First Row: Guardian Names and Contact -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+  First Name <span class="text-red-500">*</span>
+              </label>
+     <InputText @bind-Value="registrationModel.GuardianFirstName"
+         class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+  placeholder="Enter first name" />
+       </div>
+   <div>
+    <label class="block text-xs font-medium text-gray-700 mb-1.5">Middle Name</label>
+         <InputText @bind-Value="registrationModel.GuardianMiddleName"
+class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+                    placeholder="Enter middle name" />
+               </div>
+          <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+          Last Name <span class="text-red-500">*</span>
+        </label>
+             <InputText @bind-Value="registrationModel.GuardianLastName"
+      class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+     placeholder="Enter last name" />
+      </div>
+          <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+   Contact Number <span class="text-red-500">*</span>
+      </label>
+          <InputText @bind-Value="registrationModel.GuardianContactNumber"
+  class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+   placeholder="Enter contact number" />
+         </div>
+      </div>
+
+  <!-- Second Row: Relationship -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+             <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+        Relationship <span class="text-red-500">*</span>
+            </label>
+      <InputSelect @bind-Value="registrationModel.GuardianRelationship"
+              class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+         <option value="">Select Relationship</option>
+      <option value="Father">Father</option>
+  <option value="Mother">Mother</option>
+            <option value="Guardian">Guardian</option>
+            <option value="Others">Others</option>
+          </InputSelect>
+             </div>
+        </div>
+
+     @if (registrationModel.GuardianRelationship == "Others")
+            {
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+   <div>
+                 <label class="block text-xs font-medium text-gray-700 mb-1.5">
+    Please specify Relationship <span class="text-red-500">*</span>
+         </label>
+                <InputText @bind-Value="registrationModel.GuardianRelationshipOther"
+  class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+         placeholder="Enter relationship" />
+    </div>
+  </div>
+         }
+          </div>
+
+             <!-- Enrollment Details Section -->
+       <div class="bg-white p-6">
+          <h2 class="text-base font-bold text-blue-600 mb-4">Enrollment Details</h2>
+
+     <!-- Student Type -->
+      <div class="mb-6">
+  <label class="block text-xs font-medium text-gray-700 mb-2">
+     Student Type <span class="text-red-500">*</span>
+    </label>
+        <div class="flex items-center gap-8">
+     <label class="flex items-center cursor-pointer group">
+          <input type="radio" name="studentType" value="New Student"
+         checked="@(registrationModel.StudentType == "New Student")"
+      @onchange="@(() => registrationModel.StudentType = "New Student")"
+     class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+           <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">New Student</span>
+                  </label>
+          <label class="flex items-center cursor-pointer group">
+                   <input type="radio" name="studentType" value="Returnee"
+                 checked="@(registrationModel.StudentType == "Returnee")"
+  @onchange="@(() => registrationModel.StudentType = "Returnee")"
+        class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+        <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Returnee</span>
+   </label>
+  <label class="flex items-center cursor-pointer group">
+     <input type="radio" name="studentType" value="Transferee"
+          checked="@(registrationModel.StudentType == "Transferee")"
+           @onchange="@(() => registrationModel.StudentType = "Transferee")"
+        class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+              <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Transferee</span>
+ </label>
+</div>
+            </div>
+
+   <!-- Enrollment Details Row -->
+       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+         <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">With LRN?</label>
+          <div class="flex items-center gap-4 pt-2.5">
+          <label class="flex items-center cursor-pointer group">
+                <input type="checkbox"
+       checked="@registrationModel.HasLRN"
+        @onchange="@((e) => { registrationModel.HasLRN = (bool)e.Value; if((bool)e.Value) registrationModel.NoLRN = false; })"
+        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+            <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">Yes</span>
+     </label>
+      <label class="flex items-center cursor-pointer group">
+       <input type="checkbox"
+    checked="@registrationModel.NoLRN"
+          @onchange="@((e) => { registrationModel.NoLRN = (bool)e.Value; if((bool)e.Value) registrationModel.HasLRN = false; })"
+     class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+                 <span class="ml-2 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">No</span>
+              </label>
+          </div>
+     </div>
+ <div>
+         <label class="block text-xs font-medium text-gray-700 mb-1.5">
+             Learner Reference No. <span class="text-red-500">*</span>
+ </label>
+           <InputText @bind-Value="registrationModel.LearnerReferenceNo"
+             class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors"
+   placeholder="Enter LRN or 'Pending'" />
+   </div>
+          <div>
+     <label class="block text-xs font-medium text-gray-700 mb-1.5">
+         School year <span class="text-red-500">*</span>
+                   </label>
+        <InputSelect @bind-Value="registrationModel.SchoolYear"
+                  class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+               <option value="">Select School Year</option>
+    <option value="2025-2026">2025-2026</option>
+     <option value="2024-2025">2024-2025</option>
+          <option value="2026-2027">2026-2027</option>
+   </InputSelect>
+           </div>
+<div>
+        <label class="block text-xs font-medium text-gray-700 mb-1.5">
+        Grade to Enroll <span class="text-red-500">*</span>
+     </label>
+          <InputSelect @bind-Value="registrationModel.GradeToEnroll"
+class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 hover:bg-white transition-colors appearance-none cursor-pointer">
+    <option value="">Select Grade</option>
+         <option value="Kinder">Kinder</option>
+           <option value="Grade 1">Grade 1</option>
+        <option value="Grade 2">Grade 2</option>
+       <option value="Grade 3">Grade 3</option>
+                   <option value="Grade 4">Grade 4</option>
+             <option value="Grade 5">Grade 5</option>
+         <option value="Grade 6">Grade 6</option>
+             </InputSelect>
+             </div>
+          </div>
+
+ <!-- Requirements -->
+          <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 mb-6">
+          <label class="block text-xs font-medium text-gray-700 mb-3">
+ Requirements <span class="text-red-500">*</span>
+  </label>
+             <div class="space-y-2">
+      <label class="flex items-center cursor-pointer group">
+           <input type="checkbox"
+checked="@registrationModel.HasPSABirthCertificate"
+ @onchange="@((e) => registrationModel.HasPSABirthCertificate = (bool)e.Value)"
+ class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer" />
+  <span class="ml-3 text-sm text-gray-700 group-hover:text-blue-600 transition-colors">PSA Birth Certificate</span>
+  </label>
+ </div>
+ </div>
+
+        <!-- Terms and Conditions -->
+            <div class="mb-8">
+          <label class="flex items-start cursor-pointer group">
+       <input type="checkbox"
+       checked="@registrationModel.AgreeToTerms"
+    @onchange="@((e) => registrationModel.AgreeToTerms = (bool)e.Value)"
+        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-2 focus:ring-green-500 cursor-pointer mt-0.5" />
+ <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">I agree to the Terms of Enrollment, Privacy Policy, and consent to the processing of my personal data.</span>
+   </label>
+              </div>
+
+         <!-- Form Buttons -->
+        <div class="flex justify-center gap-4 pt-4">
+ <button type="button" @onclick="HandleCancel"
+    class="px-12 py-3 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white font-semibold rounded-full transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+  Cancel
+         </button>
+         <button type="submit"
+           class="px-12 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-full transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          Submit
+           </button>
+         </div>
+  </div>
+</EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegistrationModel registrationModel = new();
+
+    private void HandlePermanentAddressChange(bool isChecked, bool isSame)
+    {
+        if (isChecked)
+        {
+        if (isSame)
+ {
+         // Copy current address to permanent address
+        registrationModel.PermanentSameAsCurrent = true;
+    registrationModel.PermanentNotSameAsCurrent = false;
+        registrationModel.PermanentHouseNo = registrationModel.CurrentHouseNo;
+      registrationModel.PermanentStreetName = registrationModel.CurrentStreetName;
+          registrationModel.PermanentBarangay = registrationModel.CurrentBarangay;
+     registrationModel.PermanentBarangayOther = registrationModel.CurrentBarangayOther;
+             registrationModel.PermanentMunicipality = registrationModel.CurrentMunicipality;
+         registrationModel.PermanentProvince = registrationModel.CurrentProvince;
+     registrationModel.PermanentCountry = registrationModel.CurrentCountry;
+        registrationModel.PermanentZipCode = registrationModel.CurrentZipCode;
+            }
+            else
+            {
+    // Clear permanent address fields
+          registrationModel.PermanentSameAsCurrent = false;
+  registrationModel.PermanentNotSameAsCurrent = true;
+registrationModel.PermanentHouseNo = string.Empty;
+       registrationModel.PermanentStreetName = string.Empty;
+       registrationModel.PermanentBarangay = string.Empty;
+          registrationModel.PermanentBarangayOther = string.Empty;
+        registrationModel.PermanentMunicipality = string.Empty;
+    registrationModel.PermanentProvince = string.Empty;
+                registrationModel.PermanentCountry = string.Empty;
+       registrationModel.PermanentZipCode = string.Empty;
+       }
+        }
+    }
+
+    private void HandleSubmit()
+    {
+        // TODO: Implement form submission logic
+        Console.WriteLine("Form submitted");
+        Navigation.NavigateTo("/dashboard");
+  }
+
+ private void HandleCancel()
+    {
+        Navigation.NavigateTo("/");
+    }
+
+    public class RegistrationModel
+    {
+        // Personal Information
+     public string FirstName { get; set; } = string.Empty;
+ public string MiddleName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Suffix { get; set; } = string.Empty;
+        public DateTime? BirthDate { get; set; }
+        public string PlaceOfBirth { get; set; } = string.Empty;
+    public string Sex { get; set; } = string.Empty;
+        public string MotherTongue { get; set; } = string.Empty;
+        public string MotherTongueOther { get; set; } = string.Empty;
+        public bool IsIndigenous { get; set; } = false;
+        public bool IsNotIndigenous { get; set; } = false;
+  public string IndigenousSpecify { get; set; } = string.Empty;
+        public string IndigenousSpecifyOther { get; set; } = string.Empty;
+      public bool Is4PsBeneficiary { get; set; } = false;
+    public bool IsNot4PsBeneficiary { get; set; } = false;
+   public string FourPsHouseholdId { get; set; } = string.Empty;
+
+    // Current Address
+     public string CurrentHouseNo { get; set; } = string.Empty;
+   public string CurrentStreetName { get; set; } = string.Empty;
+        public string CurrentBarangay { get; set; } = string.Empty;
+   public string CurrentBarangayOther { get; set; } = string.Empty;
+        public string CurrentMunicipality { get; set; } = string.Empty;
+        public string CurrentProvince { get; set; } = string.Empty;
+     public string CurrentCountry { get; set; } = string.Empty;
+        public string CurrentZipCode { get; set; } = string.Empty;
+
+        // Permanent Address
+        public bool PermanentSameAsCurrent { get; set; } = false;
+        public bool PermanentNotSameAsCurrent { get; set; } = false;
+        public string PermanentHouseNo { get; set; } = string.Empty;
+        public string PermanentStreetName { get; set; } = string.Empty;
+     public string PermanentBarangay { get; set; } = string.Empty;
+     public string PermanentBarangayOther { get; set; } = string.Empty;
+        public string PermanentMunicipality { get; set; } = string.Empty;
+        public string PermanentProvince { get; set; } = string.Empty;
+  public string PermanentCountry { get; set; } = string.Empty;
+        public string PermanentZipCode { get; set; } = string.Empty;
+
+        // Guardian Information
+        public string GuardianFirstName { get; set; } = string.Empty;
+        public string GuardianMiddleName { get; set; } = string.Empty;
+        public string GuardianLastName { get; set; } = string.Empty;
+        public string GuardianContactNumber { get; set; } = string.Empty;
+        public string GuardianRelationship { get; set; } = string.Empty;
+        public string GuardianRelationshipOther { get; set; } = string.Empty;
+
+        // Enrollment Details
+        public string StudentType { get; set; } = string.Empty;
+     public bool HasLRN { get; set; } = false;
+        public bool NoLRN { get; set; } = false;
+        public string LearnerReferenceNo { get; set; } = string.Empty;
+        public string SchoolYear { get; set; } = string.Empty;
+      public string GradeToEnroll { get; set; } = string.Empty;
+    public bool HasPSABirthCertificate { get; set; } = false;
+ public bool AgreeToTerms { get; set; } = false;
+    }
+}

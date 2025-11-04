@@ -1,0 +1,71 @@
+/* Navigation Link Styles */
+nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    color: #374151; /* gray-700 */
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+}
+
+nav a:hover {
+    background-color: #f9fafb; /* gray-50 */
+}
+
+/* Active Navigation Link with Left Blue Indicator */
+nav a.active {
+    color: #2563eb !important; /* blue-600 */
+    background-color: #dbeafe !important; /* blue-100 - lighter background */
+}
+
+nav a.active svg {
+    color: #2563eb; /* blue-600 */
+}
+
+/* Blue indicator on the left side - full height */
+nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #2563eb; /* blue-600 */
+    border-radius: 0 4px 4px 0;
+}
+
+/* Ensure hover doesn't override active state */
+nav a.active:hover {
+    background-color: #dbeafe !important; /* blue-100 */
+}
+
+nav svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Rotate animation for chevron */
+.rotate-180 {
+    transform: rotate(180deg);
+}

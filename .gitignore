@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Build output
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Tailwind CSS output (optional - uncomment if you want to generate it on build)
+# wwwroot/css/tailwind.css
+
+# npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~

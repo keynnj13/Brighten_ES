@@ -1,0 +1,30 @@
+@page "/"
+@inject NavigationManager Navigation
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-4 sm:p-6 md:p-8">
+  <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 lg:p-12 w-full max-w-sm sm:max-w-md">
+ <div class="flex flex-col items-center">
+  <!-- Logo Section -->
+  <div class="mb-6 sm:mb-8">
+      <img src="brighthenlogo.png" alt="BrightenRoll Logo" class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain" />
+    </div>
+  
+        <!-- Log In Button -->
+  <button @onclick="NavigateToLogin" class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold py-2.5 sm:py-3 px-4 sm:px-6 rounded-full transition-colors duration-200 mb-3 sm:mb-4 text-sm sm:text-base">
+     LOG IN
+</button>
+   
+     <!-- Student Registration Link -->
+  <a href="/student-registration" class="text-gray-700 hover:text-gray-900 text-xs sm:text-sm underline">
+       Student Registration
+     </a>
+ </div>
+    </div>
+</div>
+
+@code {
+    private void NavigateToLogin()
+    {
+        Navigation.NavigateTo("/login");
+    }
+}
